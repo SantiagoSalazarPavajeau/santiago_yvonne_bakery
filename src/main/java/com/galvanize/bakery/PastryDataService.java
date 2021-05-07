@@ -14,4 +14,14 @@ public class PastryDataService {
     public List<Pastry> getData() {
         return pastryList;
     }
+
+    public Pastry getByName(String name) {
+        for (int i = 0; i < pastryList.size(); i++) {
+            if (pastryList.get(i).getName().equals(name)) {
+                return pastryList.get(i);
+            }
+        }
+
+        return null;
+    }
 }

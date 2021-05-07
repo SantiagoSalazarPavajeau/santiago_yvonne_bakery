@@ -35,4 +35,9 @@ public class PastryTests {
 
         assertEquals(3, pastry.getIngredients().size(), "addIngredients() should be able to pass in a String ingredient and update field ingredients");
     }
+
+    @Test
+    public void getNameMethodExists() {
+        assertEquals("Cheese cake", pastry.getName(), "getName() exists and returns pastry");
+    }
 }

@@ -39,4 +39,12 @@ public class PastryServiceTests {
     void getDataMethodExists() {
         assertEquals(3, pastryDataService.getData().size(), "getData() method exists");
     }
+
+    @Test
+    void getByNameMethodExistsAndReturnsPastry() {
+        Pastry expected = pastryDataService.getData().get(0);
+        Pastry actual = pastryDataService.getByName("Cheese cake");
+
+        assertEquals(expected, actual, "Can find a pastry by String name and return pastry");
+    }
 }

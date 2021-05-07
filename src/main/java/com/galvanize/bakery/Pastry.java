@@ -23,5 +23,7 @@ public class Pastry {
         ingredients.add(ingredient);
     }
 
-
+    public String getName() {
+        return name;
+    }
 }
