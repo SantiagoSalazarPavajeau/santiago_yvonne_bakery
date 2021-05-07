@@ -26,4 +26,13 @@ public class PastryTests {
     public void getIngredientsExistsOnPastry() {
         assertTrue(pastry.getIngredients() instanceof List, "getIngredients method returns Array list of ingredients");
     }
+
+    @Test
+    public void addIngredientsToPastry(){
+        pastry.addIngredient("cheese");
+        pastry.addIngredient("strawberries");
+        pastry.addIngredient("sugar");
+
+        assertEquals(3, pastry.getIngredients().size(), "addIngredients() should be able to pass in a String ingredient and update field ingredients");
+    }
 }

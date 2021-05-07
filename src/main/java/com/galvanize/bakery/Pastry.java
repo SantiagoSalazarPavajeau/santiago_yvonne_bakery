@@ -19,5 +19,9 @@ public class Pastry {
         return ingredients;
     }
 
+    public void addIngredient(String ingredient) {
+        ingredients.add(ingredient);
+    }
+
 
 }
