@@ -40,7 +40,6 @@ public class PastryControllerTests {
 
     @Test
     void getAllPastries() throws Exception{
-        System.out.println(pastryDataService.getData());
         when(pastryDataService.getData()).thenReturn(myPastryList);
 
         mockMvc.perform(get("/pastries"))
@@ -64,7 +63,7 @@ public class PastryControllerTests {
     @Test
     void getByNameTest() throws Exception {
         Pastry actual = new Pastry("cupcake", 5.00, false);
-        myPastryList.add(actual);
+//        myPastryList.add(actual);
         when(pastryDataService.getByName("cupcake")).thenReturn(actual);
 
         mockMvc.perform(get("/pastries/cupcake"))
@@ -73,21 +72,20 @@ public class PastryControllerTests {
                 .andExpect(jsonPath("name").value("cupcake"));
     }
 
-//    @Test
-//    void editByName() throws Exception {
-//        Pastry actual = new Pastry("cupcake", 5.00, false);
-//        actual.setName("editCupcake"); // fake editing
-//        System.out.println(actual.getName());
-//        myPastryList.add(actual);
-//
-//        when(pastryDataService.editByName("cupcake","editCupcake")).thenReturn(actual);
-//
-//        mockMvc.perform(patch("/pastries/editCupcake")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\"name\":\"editCupcake\"}"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("name").value("editCupcake"));
-//    }
+    @Test
+    void editByName() throws Exception {
+        Pastry actual = new Pastry("cupcake", 5.00, false);
+        actual.setName("editCupcake"); // fake editing
+
+        when(pastryDataService.editByName("cupcake","editCupcake")).thenReturn(actual);
+
+        mockMvc.perform(patch("/pastries/cupcake")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"editCupcake\"}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("editCupcake"));
+    }
 
     @Test
     void deletePastry() throws Exception {

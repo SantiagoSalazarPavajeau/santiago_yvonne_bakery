@@ -1,5 +1,7 @@
 package com.galvanize.bakery;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -26,24 +28,16 @@ public class PastryController {
 
     @GetMapping("/pastries/{name}")
     public Pastry getPastryByName(@PathVariable String name) {
+        System.out.println(pastryDataService.getData());
         return pastryDataService.getByName(name);
     }
 
-//    @PatchMapping("/pastries/{name}")
-//    public Pastry editPastryByName(@PathVariable String name, @RequestBody Map<String, String> newName) {
-//        System.out.println(newName);
-//        return pastryDataService.editByName(name, newName.name);
-//    }
-
-//    @RestController
-//    @RequestMapping("/api/{api}/users")
-//    public class UserController {
-//
-//        @PatchMapping("/{id}")
-//        String update(@PathVariable String id, @RequestBody UpdateUserRequest request){
-//            service.update(id, request);
-//        }
-//    }
+    @PatchMapping("/pastries/{name}")
+    public Pastry editPastryByName(@PathVariable String name, @RequestBody String newName) {
+        String substring = newName.substring(9, newName.length()-2);
+        Pastry pastry = pastryDataService.editByName(name, substring);
+        return pastry;
+    }
 
     @DeleteMapping("/pastries/{name}")
     public List<Pastry> deletePastryByName(@PathVariable String name) {
