@@ -2,6 +2,7 @@ package com.galvanize.bakery;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,26 @@ public class PastryController {
     @GetMapping("/pastries/{name}")
     public Pastry getPastryByName(@PathVariable String name) {
         return pastryDataService.getByName(name);
+    }
+
+    @PatchMapping("/pastries/{name}")
+    public Pastry editPastryByName(@PathVariable String name, @RequestBody String newName) {
+        return pastryDataService.editByName(name, newName);
+    }
+
+//    @RestController
+//    @RequestMapping("/api/{api}/users")
+//    public class UserController {
+//
+//        @PatchMapping("/{id}")
+//        String update(@PathVariable String id, @RequestBody UpdateUserRequest request){
+//            service.update(id, request);
+//        }
+//    }
+
+    @DeleteMapping("/pastries/{name}")
+    public List<Pastry> deletePastryByName(@PathVariable String name) {
+        return pastryDataService.deleteItemByName(name);
     }
 
 }

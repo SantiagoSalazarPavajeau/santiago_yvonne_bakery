@@ -14,9 +14,8 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,6 +40,7 @@ public class PastryControllerTests {
 
     @Test
     void getAllPastries() throws Exception{
+        System.out.println(pastryDataService.getData());
         when(pastryDataService.getData()).thenReturn(myPastryList);
 
         mockMvc.perform(get("/pastries"))
@@ -67,11 +67,54 @@ public class PastryControllerTests {
     @Test
     void getByNameTest() throws Exception {
         Pastry actual = new Pastry("cupcake", 5.00, false);
+        myPastryList.add(actual);
         when(pastryDataService.getByName("cupcake")).thenReturn(actual);
 
         mockMvc.perform(get("/pastries/cupcake"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("cupcake"));
+    }
+
+//    @Test
+//    void editByName() throws Exception {
+//        Pastry actual = new Pastry("cupcake", 5.00, false);
+//        actual.setName("editCupcake");
+//        myPastryList.add(actual);
+//
+//        when(pastryDataService.editByName("cupcake","editCupcake")).thenReturn(actual);
+//
+//        mockMvc.perform(patch("/pastries/" + actual.getName())
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{\"name\":\"editCupcake\""))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("name").value("editCupcake"));
+//    }
+
+//    @Test
+//    void updateBody() throws Exception {
+//        ListItem actual= new ListItem("bodyTest");
+//        actual.setId(9);
+//        actual.setBody("this is the body");
+//        when(listService.updateBody(anyInt(), anyString())).thenReturn(actual);
+//
+//        mockMvc.perform(patch("/listItem/" + actual.getId())
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{\"body\":\"this is the body\"}"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("body").value("this is the body"));
+//    }
+
+    @Test
+    void deletePastry() throws Exception {
+        Pastry actual = new Pastry("cupcake", 5.00, false);
+        myPastryList.add(actual); //fake
+        myPastryList.remove(actual);
+
+        when(pastryDataService.deleteItemByName("cupcake")).thenReturn(myPastryList);
+
+        mockMvc.perform((delete("/pastries/cupcake")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
     }
 }
