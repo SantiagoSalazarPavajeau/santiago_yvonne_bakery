@@ -10,4 +10,8 @@ public class PastryDataService {
         pastryList.add(pastry);
         return pastry;
     }
+
+    public List<Pastry> getData() {
+        return pastryList;
+    }
 }

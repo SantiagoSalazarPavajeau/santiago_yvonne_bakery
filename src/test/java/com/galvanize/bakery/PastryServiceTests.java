@@ -34,4 +34,9 @@ public class PastryServiceTests {
 
         assertEquals(pastry, actual, "Creates addData method and passes in pastry and returns the passed argument");
     }
+
+    @Test
+    void getDataMethodExists() {
+        assertEquals(3, pastryDataService.getData().size(), "getData() method exists");
+    }
 }
