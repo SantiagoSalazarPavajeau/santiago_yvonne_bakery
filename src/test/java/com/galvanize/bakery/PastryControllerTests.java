@@ -49,20 +49,17 @@ public class PastryControllerTests {
                 .andExpect(jsonPath("$", hasSize(3)));
     }
 
-//    @Test
-//    void addNewPastry() throws Exception{
-//
-//        when(pastryDataService.addToMyData(any(Pastry.class))).thenReturn(new Pastry("Cupcake", 7.99, true));
-//
-//        mockMvc.perform(post("/pastries")
-//                            .contentType(MediaType.APPLICATION_JSON)
-//                            .content("{\"name\":\"Cupcake\",\"price\":\"7.99\",\"gluten-free\":\"true\"}"))
-//                .andExpect(status().isOk())
-////                .andExpect(jsonPath("$", hasSize(1)));
-//                .andExpect(jsonPath("name").value("Cupcake"))
-//                .andExpect(jsonPath("price").value("7.99"))
-//                .andExpect(jsonPath("gluten-free").value("true"));
-//    }
+    @Test
+    void addNewPastry() throws Exception {
+
+        when(pastryDataService.addToMyData(any(Pastry.class))).thenReturn(new Pastry("Cupcake", 7.99, true));
+
+        mockMvc.perform(post("/pastries")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"Cupcake\",\"price\":\"7.99\",\"gluten-free\":\"true\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value("Cupcake"));
+    }
 
     @Test
     void getByNameTest() throws Exception {
@@ -91,19 +88,7 @@ public class PastryControllerTests {
 //                .andExpect(jsonPath("name").value("editCupcake"));
 //    }
 
-//    @Test
-//    void updateBody() throws Exception {
-//        ListItem actual= new ListItem("bodyTest");
-//        actual.setId(9);
-//        actual.setBody("this is the body");
-//        when(listService.updateBody(anyInt(), anyString())).thenReturn(actual);
-//
-//        mockMvc.perform(patch("/listItem/" + actual.getId())
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\"body\":\"this is the body\"}"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("body").value("this is the body"));
-//    }
+
 
     @Test
     void deletePastry() throws Exception {
@@ -118,3 +103,17 @@ public class PastryControllerTests {
                 .andExpect(jsonPath("$", hasSize(3)));
     }
 }
+
+//    @Test
+//    void updateBody() throws Exception {
+//        ListItem actual= new ListItem("bodyTest");
+//        actual.setId(9);
+//        actual.setBody("this is the body");
+//        when(listService.updateBody(anyInt(), anyString())).thenReturn(actual);
+//
+//        mockMvc.perform(patch("/listItem/" + actual.getId())
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{\"body\":\"this is the body\"}"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("body").value("this is the body"));
+//    }
