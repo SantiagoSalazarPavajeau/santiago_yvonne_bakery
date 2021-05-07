@@ -1,7 +1,6 @@
 package com.galvanize.bakery;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +17,16 @@ public class PastryController {
     @GetMapping("/pastries")
     public List<Pastry> getAllPastries(){
         return pastryDataService.getData();
+    }
+
+    @PostMapping("/pastries")
+    public Pastry addNewPastry(@RequestBody Pastry pastry){ //init pastry from json
+        return pastryDataService.addToMyData((pastry));
+    }
+
+    @GetMapping("/pastries/{name}")
+    public Pastry getPastryByName(@PathVariable String name) {
+        return pastryDataService.getByName(name);
     }
 
 }

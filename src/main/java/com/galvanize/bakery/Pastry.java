@@ -9,7 +9,10 @@ public class Pastry {
     private boolean glutenFree;
     private List<String> ingredients = new ArrayList<>();
 
-    Pastry(String name, double price, boolean glutenFree){
+    public Pastry() {
+    }
+
+    public Pastry(String name, double price, boolean glutenFree){
         this.name = name;
         this.price = price;
         this.glutenFree = glutenFree;
@@ -26,4 +29,6 @@ public class Pastry {
     public String getName() {
         return name;
     }
+
+
 }
