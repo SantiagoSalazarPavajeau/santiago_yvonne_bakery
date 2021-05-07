@@ -76,19 +76,18 @@ public class PastryControllerTests {
 //    @Test
 //    void editByName() throws Exception {
 //        Pastry actual = new Pastry("cupcake", 5.00, false);
-//        actual.setName("editCupcake");
+//        actual.setName("editCupcake"); // fake editing
+//        System.out.println(actual.getName());
 //        myPastryList.add(actual);
 //
 //        when(pastryDataService.editByName("cupcake","editCupcake")).thenReturn(actual);
 //
-//        mockMvc.perform(patch("/pastries/" + actual.getName())
+//        mockMvc.perform(patch("/pastries/editCupcake")
 //                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\"name\":\"editCupcake\""))
+//                .content("{\"name\":\"editCupcake\"}"))
 //                .andExpect(status().isOk())
 //                .andExpect(jsonPath("name").value("editCupcake"));
 //    }
-
-
 
     @Test
     void deletePastry() throws Exception {
@@ -103,17 +102,3 @@ public class PastryControllerTests {
                 .andExpect(jsonPath("$", hasSize(3)));
     }
 }
-
-//    @Test
-//    void updateBody() throws Exception {
-//        ListItem actual= new ListItem("bodyTest");
-//        actual.setId(9);
-//        actual.setBody("this is the body");
-//        when(listService.updateBody(anyInt(), anyString())).thenReturn(actual);
-//
-//        mockMvc.perform(patch("/listItem/" + actual.getId())
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\"body\":\"this is the body\"}"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("body").value("this is the body"));
-//    }
