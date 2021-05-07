@@ -15,38 +15,15 @@ externalDocs:
 tags:
   - name: pastry
     description: Everything about our pastries
-  - name: drinks
-    description: Everything about our drinks
 
 components:
   schemas:
-    Drink:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: integer
-        cold:
-          type: boolean
-        ingredients:
-          type: array
     Pastry:
       type: object
       properties:
-        id:
-          type: integer
         name:
           type: string
-        description:
-          type: string
         price:
-          type: integer
-        quantity:
           type: integer
         gluten-free:
           type: boolean
@@ -56,89 +33,6 @@ servers:
   - url: https://localhost:/8080
 
 paths:
-  /drinks:
-    get:
-      tags:
-        - drinks
-      summary: Finds all drinks
-      responses:
-        '200':
-          description: Successful operation
-    post:
-      tags:
-        - drinks
-      summary: Add a drink to inventory
-      responses:
-        '200':
-          description: OK
-  /drinks/{drinkId}:
-    get:
-      tags:
-        - drinks
-      summary: Find drink by ID
-      description: Returns a single drink
-      parameters:
-        - name: drinkId
-          in: path
-          description: ID of drink to return
-          required: true
-      responses:
-        '200':
-          description: OK
-    patch:
-      tags:
-        - drinks
-      summary: Edit drink by ID
-      description: Edit a drink by ID
-      parameters:
-        - name: drinkId
-          in: path
-          description: ID of drink to edit
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Drink'
-      responses:
-        '200':
-          description: Successful operation
-    delete:
-      tags:
-        - drinks
-      summary: Delete drink by ID
-      parameters:
-        - name: drinkId
-          in: path
-          description: ID of drink to delete
-          required: true
-      responses:
-        '200':
-          description: Successful operation
-  /drinks/filterByIngredients:
-    get:
-      tags:
-        - drinks
-      summary: Filter for ingredients in drinks
-      parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-              default: available
-              enum:
-                - milk
-                - soy
-    responses:
-      '200':
-        description: Successful operation
-
   /pastries:
     get:
       tags:
@@ -162,16 +56,16 @@ paths:
       responses:
         '200':
           description: Successful operation
-  /pastries/{pastryId}:
+  /pastries/{name}:
     get:
       tags:
         - pastry
-      summary: Find pastry by ID
+      summary: Find pastry by name
       description: Returns a single pastry
       parameters:
-        - name: pastryId
+        - name: pastryName
           in: path
-          description: ID of pastry to return
+          description: Name of pastry to return
           required: true
       responses:
         '200':
@@ -179,12 +73,12 @@ paths:
     patch:
       tags:
         - pastry
-      summary: Edit pastry by ID
-      description: Edit a pastry by ID
+      summary: Edit pastry by name
+      description: Edit a pastry by name
       parameters:
-        - name: pastryId
+        - name: pastryName
           in: path
-          description: ID of pastry to edit
+          description: Name of pastry to edit
           required: true
       requestBody:
         content:
@@ -199,34 +93,10 @@ paths:
         - pastry
       summary: Delete pastry by ID
       parameters:
-        - name: pastryId
+        - name: pastryName
           in: path
-          description: ID of pastry to delete
+          description: Name of pastry to delete
           required: true
-      responses:
-        '200':
-          description: Successful operation
-  /pastries/filterByIngredients:
-    get:
-      tags:
-        - pastry
-      summary: Filter for ingredients in pastries
-      parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-              default: available
-              enum:
-                - milk
-                - eggs
-                - nuts
       responses:
         '200':
           description: Successful operation
