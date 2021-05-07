@@ -27,7 +27,7 @@ public class PastryServiceTests {
 
     }
 
-    @Test
+    @Test // post
     public void createAddDataMethodReturnsData() {
         Pastry pastry = new Pastry("Cheese cake", 5.00, false);
         Pastry actual = pastryDataService.addToMyData(pastry);
@@ -35,12 +35,12 @@ public class PastryServiceTests {
         assertEquals(pastry, actual, "Creates addData method and passes in pastry and returns the passed argument");
     }
 
-    @Test
+    @Test // get alll
     void getDataMethodExists() {
         assertEquals(3, pastryDataService.getData().size(), "getData() method exists");
     }
 
-    @Test
+    @Test // get one
     void getByNameMethodExistsAndReturnsPastry() {
         Pastry expected = pastryDataService.getData().get(0);
         Pastry actual = pastryDataService.getByName("Cheese cake");
