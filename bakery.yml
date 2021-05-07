@@ -1,0 +1,232 @@
+openapi: 3.0.1
+info:
+  title: Bakery
+  description: 'This is a sample Bakery server created by Santiago and Yvonne.'
+#  termsOfService: http://swagger.io/terms/
+#  contact:
+#    email: apiteam@swagger.io
+#  license:
+#    name: Apache 2.0
+#    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+externalDocs:
+  description: Find out more about our bakery
+#  url: http://swagger.io
+tags:
+  - name: pastry
+    description: Everything about our pastries
+  - name: drinks
+    description: Everything about our drinks
+
+components:
+  schemas:
+    Drink:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: integer
+        cold:
+          type: boolean
+        ingredients:
+          type: array
+    Pastry:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+        gluten-free:
+          type: boolean
+        ingredients:
+          type: array
+servers:
+  - url: https://localhost:/8080
+
+paths:
+  /drinks:
+    get:
+      tags:
+        - drinks
+      summary: Finds all drinks
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      tags:
+        - drinks
+      summary: Add a drink to inventory
+      responses:
+        '200':
+          description: OK
+  /drinks/{drinkId}:
+    get:
+      tags:
+        - drinks
+      summary: Find drink by ID
+      description: Returns a single drink
+      parameters:
+        - name: drinkId
+          in: path
+          description: ID of drink to return
+          required: true
+      responses:
+        '200':
+          description: OK
+    patch:
+      tags:
+        - drinks
+      summary: Edit drink by ID
+      description: Edit a drink by ID
+      parameters:
+        - name: drinkId
+          in: path
+          description: ID of drink to edit
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drink'
+      responses:
+        '200':
+          description: Successful operation
+    delete:
+      tags:
+        - drinks
+      summary: Delete drink by ID
+      parameters:
+        - name: drinkId
+          in: path
+          description: ID of drink to delete
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+  /drinks/filterByIngredients:
+    get:
+      tags:
+        - drinks
+      summary: Filter for ingredients in drinks
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              default: available
+              enum:
+                - milk
+                - soy
+    responses:
+      '200':
+        description: Successful operation
+
+  /pastries:
+    get:
+      tags:
+        - pastry
+      summary: Find all pastries
+      description:
+      responses:
+        '200':
+          description: Successful operation
+    post:
+      tags:
+        - pastry
+      summary: Add a new pastry to inventory
+      description: Pastry object that needs to be added to inventory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pastry'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+  /pastries/{pastryId}:
+    get:
+      tags:
+        - pastry
+      summary: Find pastry by ID
+      description: Returns a single pastry
+      parameters:
+        - name: pastryId
+          in: path
+          description: ID of pastry to return
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+    patch:
+      tags:
+        - pastry
+      summary: Edit pastry by ID
+      description: Edit a pastry by ID
+      parameters:
+        - name: pastryId
+          in: path
+          description: ID of pastry to edit
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pastry'
+      responses:
+        '200':
+          description: Successful operation
+    delete:
+      tags:
+        - pastry
+      summary: Delete pastry by ID
+      parameters:
+        - name: pastryId
+          in: path
+          description: ID of pastry to delete
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+  /pastries/filterByIngredients:
+    get:
+      tags:
+        - pastry
+      summary: Filter for ingredients in pastries
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              default: available
+              enum:
+                - milk
+                - eggs
+                - nuts
+      responses:
+        '200':
+          description: Successful operation
